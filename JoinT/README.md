@@ -5,7 +5,7 @@ JoinT-seq combines the identification of a comprehensive map of both re-JOINing 
 ## Get the code
 Clone our git rep
 ```
-git clone 
+git clone https://github.com/marielebouteiller/JoinT-seq.git
 ```
 
 ## Dependencies
