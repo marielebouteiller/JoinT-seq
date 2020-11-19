@@ -5,7 +5,7 @@ One approach to get rejoining events combined to translocations found by wrapper
 ## Get the code
 Clone our git rep
 ```
-git clone 
+git clone https://github.com/marielebouteiller/JoinT-seq.git
 ```
 
 ## Requirements
