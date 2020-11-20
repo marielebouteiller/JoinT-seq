@@ -1,5 +1,5 @@
 # JoinT-seq generation
-JoinT-seq provides a comprehensive map of both proximal rejoining and genome-wide translocations from a bait DSB. 
+JoinT-seq provides a comprehensive map of prey single break rejoining and genome-wide translocation to a specific bait broken DNA end.
 ## LAM-HTGTS 
 Junction-enriched libraries are generated as previously described for LAM-HTGTS (Hu et al., 2016) but with the removal of the bait DSB rejoining blocking step, and libraries are sequenced. Pooled raw sequences are demultiplexed and adapter trimmed using the TranslocPreprocess pipeline, and translocations are identified using the TranslocWrapper pipeline (Hu et al., 2016). From the original TranslocWrapper pipeline, we only modified the TranslocDedup.R script to refine the definition of duplicate junctions : we required the same number of insertion or resection to occur right between the end of the bait and the start of the prey and the exact same bases inserted if any for two junctions to be called duplicates.
 ## JoinT
