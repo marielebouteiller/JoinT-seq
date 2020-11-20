@@ -349,9 +349,6 @@ find_rejoining_events <- function(lib, master_tlx, meta, fastq, RepSeq, keep){
   print(paste("sum: ", nrow(excluded) + nrow(unmod) + nrow(tlx_rejoining) + n_uncut, sep=""))
   print(paste("total from bowtie: ", nrow(df) + n_uncut, sep=""))
   print(paste("CHECK: total from bowtie and sum of my files are the same: ", nrow(df) == nrow(excluded) + nrow(unmod) + nrow(tlx_rejoining), sep=""))
-  write.table(tlx_rejoining, file=paste(lib, "_rejoining.tlx", sep =""), sep="\t", quote = FALSE, row.names = FALSE)
-  write.table(unmod, file=paste(lib, "_unmod.tlx", sep =""), sep="\t", quote = FALSE, row.names = FALSE, col.names=FALSE, append=TRUE)
-  write.table(excluded, file=paste(lib, "_excluded.tlx", sep =""), sep="\t", quote = FALSE, row.names = FALSE)
   print("collecting all rejoining events done")
   print(Sys.time())
   
@@ -359,17 +356,20 @@ find_rejoining_events <- function(lib, master_tlx, meta, fastq, RepSeq, keep){
   write(c(paste("From Bowtie2, number of reads with alignment to the bait and the prey : ", nrow(excluded) + nrow(unmod) + nrow(tlx_rejoining) + n_uncut, " including", sep=""),
                paste("-unmodified reads : ", nrow(unmod) + n_uncut, sep=""),
                paste("-reads excluded for sequencing quality issues : ", nrow(excluded), sep=""),
-               paste("-reads jound as rejoining junctions : ", nrow(tlx_rejoining), sep="")),
+               paste("-reads found as rejoining junctions : ", nrow(tlx_rejoining), sep="")),
              file = paste(lib, "_stats.txt", sep=""))
   file.remove("bait.1.bt2", "bait.2.bt2", "bait.3.bt2", "bait.4.bt2", "bait.rev.1.bt2", "bait.rev.2.bt2","prey.1.bt2", "prey.2.bt2", "prey.3.bt2", "prey.4.bt2", "prey.rev.1.bt2", "prey.rev.2.bt2", paste(lib, ".fa", sep=""), paste(lib, "_with_prey.fa", sep=""))
   file.remove(paste(lib, "_bait.sam", sep=""), paste(lib, "_prey.sam", sep=""))
   if (!keep){
-    file.remove(paste(lib, "_df.tlx", sep=""), paste(lib, "_unmod.tlx", sep=""), paste(lib, "_excluded.tlx", sep=""))
+    file.remove(paste(lib, "_unmod.tlx", sep=""))
+  }
+  if (keep){
+    write.table(tlx_rejoining, file=paste(lib, "_rejoining.tlx", sep =""), sep="\t", quote = FALSE, row.names = FALSE)
+    write.table(unmod, file=paste(lib, "_unmod.tlx", sep =""), sep="\t", quote = FALSE, row.names = FALSE, col.names=FALSE, append=TRUE)
+    write.table(excluded, file=paste(lib, "_excluded.tlx", sep =""), sep="\t", quote = FALSE, row.names = FALSE)
   }
   return(tlx_rejoining)
 }
-
-
 
 ### SUBROUTINES
 
@@ -489,7 +489,23 @@ combine <- function(tlx_rejoining, result, meta, RepSeq, lib, keep){
                                                    B_Cigar, Cigar, Seq, J_Seq, Barcode, unaligned, baitonly, uncut, misprimed, freqcut, largegap, mapqual, breaksite, sequential, repeatseq, duplicate, filter_step)
     print(paste("CHECK: all Qnames are unique in the result_all file: ", nrow(result_all) == length(unique(result_all$Qname)), sep=""))
     print(paste("CHECK: I have included all Qnames from result and JoinT in result_all: ", nrow(result_all) == nrow(result) + nrow(tlx_rejoining) - nrow(filter(result, Qname %in% tlx_rejoining$Qname)), sep=""))
-    write.table(result_all, file=paste(lib, "_result_all.tlx", sep =""), sep="\t", quote = FALSE, row.names = FALSE)
+    if (keep){
+      write.table(result_all, file=paste(lib, "_result_all.tlx", sep =""), sep="\t", quote = FALSE, row.names = FALSE)
+    }
+    
+    # get the final output file with only junctions in the main chromosomes
+    JoinToutput <- filter(result_all, Rname %in% c("chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chr11", "chr12", "chr13", 
+                                                   "chr14", "chr15", "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22", "chrX", "chrY", "chrM"))
+    rejoin <- filter(JoinToutput, as.character(Rname) == as.character(meta$Chr) & Junction >= start_of_prey & Junction <= end_of_prey)
+    write.table(JoinToutput, file=paste(lib, "_JoinT.tlx", sep =""), sep="\t", quote = FALSE, row.names = FALSE)
+    
+    # add infos to stats file
+    write(c("Combining the rejoining events to the results from wrapper : ",
+            paste("-total number of junctions : ", nrow(result_all), sep=""),
+            paste("-total number of junctions in main chromosomes : ", nrow(JoinToutput), sep=""),
+            paste("-number of rejoining junctions, defined as junction with the start of prey within the amplicon : ", nrow(rejoin), sep=""),
+            paste("-number of translocations : ", nrow(JoinToutput) - nrow(rejoin), sep="")),
+          file = paste(lib, "_stats.txt", sep=""), append = TRUE)
     print("combining with results done")
     return() 
   }
@@ -546,8 +562,6 @@ combine <- function(tlx_rejoining, result, meta, RepSeq, lib, keep){
   write(c("Combining the rejoining events to the results from wrapper : ",
                paste("-total number of junctions : ", nrow(result_all), sep=""),
                paste("-total number of junctions in main chromosomes : ", nrow(JoinToutput), sep=""),
-               #paste("-number of rejoining junctions, defined as junction with the start of prey within the amplicon : ", nrow(filter(JoinToutput, Rname == meta$Chr & Junction > start_of_prey & Junction < end_of_prey)), sep=""),
-               #paste("-number of translocations : ", nrow(JoinToutput) - nrow(filter(JoinToutput, Rname == meta$Chr & Junction > start_of_prey & Junction < end_of_prey)), sep="")),
                paste("-number of rejoining junctions, defined as junction with the start of prey within the amplicon : ", nrow(rejoin), sep=""),
                paste("-number of translocations : ", nrow(JoinToutput) - nrow(rejoin), sep="")),
              file = paste(lib, "_stats.txt", sep=""), append = TRUE)
