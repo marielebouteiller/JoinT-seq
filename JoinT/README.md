@@ -41,6 +41,7 @@ The metadata file should be compatible with TranslocWrapper pipeline and include
 * 5nt_BaitEnd: 5 last nucleotides of the bait
 * 5nt_PreyStart: 5 first nucleotides of the prey
 * Amplicon: sequence including the bait and the prey. The length of the prey should be adapted to extensively include all rejoining events
+
 Optional columns :
 * Description : optional
 * Repeat_Start
