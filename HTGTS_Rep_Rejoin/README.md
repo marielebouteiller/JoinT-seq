@@ -1,11 +1,24 @@
 # HTGTS_Rep_rejoin
 One approach to get rejoining events combined to translocations found by wrapper is to run LAM-HTGTS followed by HTGTS_Rep_Rejoin. The HTGTSrep pipeline processed raw sequence reads using the bait sequence and the prey sequence corresponding to the other side of the bait DSB to identify sequence reads harboring proximal bait/prey alignments (Lin et al., 2016, https://bitbucket.org/adugduzhou/htgtsrep). The python script Rejoin is called to further filter sequence reads identified by HTGTSRep that included germline sequence alterations originating from the targeted bait DSB and used a 1nt step, 10bp sliding window along both bait/prey sequences to identify junction positions. Resulting junctions were then combined together with translocations identified separately using TranslocWrapper (Hu et al., 2016).
 
-# Installation
+# HTGTSrep usage
+HTGTSrep is run as previsouly described (Lin et al., 2016, https://bitbucket.org/adugduzhou/htgtsrep), using the following optional arguments :
+```
+HTGTSrep.py run -r1 read1_fq.gz -r2 read2_fq.gz -o output_directory -m metadata --VDJdatabase IGK --Vdb bait.fa --Ddb dummyD --Jdb prey.fa --organism mouse 
+```
+* the bait sequence is used as a surrogate for V fragments
+* the prey sequence is used as a surrogate for J fragments
+* an empty file DummyD is used as a surrogate for D fragments
+* databases for V, D, J files are generated useing the command
+```
+makeblastdb -in name.fa -dbtype nucl -parse_seqids
+```
+
+# Installation of Rejoin
 ## Get the code
 Clone our git rep
 ```
-git clone https://github.com/marielebouteiller/JoinT-seq.git
+git clone 
 ```
 
 ## Requirements
