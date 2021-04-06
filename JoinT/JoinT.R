@@ -1,7 +1,5 @@
 #!/usr/bin/env Rscript
 repo <- "/home/HTGTS_Frocklab/"
-#repo <- "/home/marielb/HTGTS_Frocklab/"
-#repo <- "/Users/marielebouteiller/Dropbox/Marie/Documents_dropbox/HTGTS_Frocklab/"
 source(paste(repo, "/JoinT/JoinT_functions.R", sep=""))
 
 suppressPackageStartupMessages(library(argparser))
@@ -65,8 +63,6 @@ JoinT <- function(meta, preprocess_folder, result_folder, output_folder, ...){
     # useful packages and source files for additional functions
     suppressPackageStartupMessages(library(futile.logger))
     repo <- "/home/HTGTS_Frocklab/"
-    #repo <- "/Users/marielebouteiller/Dropbox/Marie/Documents_dropbox/HTGTS_Frocklab/"
-    #repo <- "/home/marielb/HTGTS_Frocklab/"
     source(paste(repo, "/JoinT/JoinT_functions.R", sep=""))
     
     lib <- paste(meta_all$Library[i], "_", meta_all$Sequencing[i], sep="")
