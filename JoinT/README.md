@@ -85,3 +85,53 @@ when the --keep argument is used, the following output files are also generated:
 
 # Reference
 Hu J, Meyers RM, Dong J, Panchakshari RA, Alt FW, Frock RL. Detecting DNA double-stranded breaks in mammalian genomes by linear amplification-mediated high-throughput genome-wide translocation sequencing. Nat Protoc. 2016;11(5):853-871. doi:10.1038/nprot.2016.043
+
+# R session info
+```
+> sessionInfo()
+R version 4.0.3 (2020-10-10)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /usr/lib64/libopenblasp-r0.3.3.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats4    parallel  stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] foreach_1.5.1               futile.logger_1.4.3        
+ [3] tryCatchLog_1.2.1           stringr_1.4.0              
+ [5] dplyr_1.0.2                 ShortRead_1.48.0           
+ [7] GenomicAlignments_1.26.0    SummarizedExperiment_1.20.0
+ [9] Biobase_2.50.0              MatrixGenerics_1.2.0       
+[11] matrixStats_0.57.0          Rsamtools_2.6.0            
+[13] GenomicRanges_1.42.0        GenomeInfoDb_1.26.2        
+[15] Biostrings_2.58.0           XVector_0.30.0             
+[17] IRanges_2.24.0              S4Vectors_0.28.1           
+[19] BiocParallel_1.24.1         BiocGenerics_0.36.0        
+[21] Rbowtie2_1.12.0             argparser_0.6              
+
+loaded via a namespace (and not attached):
+ [1] formatR_1.7            pillar_1.4.7           compiler_4.0.3        
+ [4] RColorBrewer_1.1-2     iterators_1.0.13       futile.options_1.0.1  
+ [7] bitops_1.0-6           tools_4.0.3            zlibbioc_1.36.0       
+[10] tibble_3.0.4           lifecycle_0.2.0        lattice_0.20-41       
+[13] pkgconfig_2.0.3        png_0.1-7              rlang_0.4.9           
+[16] Matrix_1.2-18          DelayedArray_0.16.0    GenomeInfoDbData_1.2.4
+[19] hwriter_1.3.2          generics_0.1.0         vctrs_0.3.5           
+[22] tidyselect_1.1.0       grid_4.0.3             glue_1.4.2            
+[25] R6_2.5.0               jpeg_0.1-8.1           latticeExtra_0.6-29   
+[28] lambda.r_1.2.4         purrr_0.3.4            magrittr_2.0.1        
+[31] codetools_0.2-18       ellipsis_0.3.1         stringi_1.5.3         
+[34] RCurl_1.98-1.2         crayon_1.3.4  
+```
