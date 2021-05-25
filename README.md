@@ -1,5 +1,5 @@
 # JoinT-seq generation
-JoinT-seq provides a comprehensive map of prey single break rejoining and genome-wide translocation to a specific bait broken DNA end.
+JoinT-seq provides a comprehensive map of prey single break rejoining and genome-wide translocation to a specific bait broken DNA end (Liang et al., 2021).
 ## LAM-HTGTS 
 Junction-enriched libraries are generated as previously described for LAM-HTGTS (Hu et al., 2016) but with the removal of the bait DSB rejoining blocking step, and libraries are sequenced. Pooled raw sequences are demultiplexed and adapter trimmed using the TranslocPreprocess pipeline, and translocations are identified using the TranslocWrapper pipeline (https://robinmeyers.github.io/transloc_pipeline/). We used a modified version of the TranslocWrapper pipeline TranslocDedup.R script to correct for the determination of a duplicated junction; the adjustment now additionally takes into account the nucleotide content of inserted sequence between bait/prey and restricts the
 indels involved in duplicate determination to those occuring right at the break-site. The modified TranslocDedup.R script is available here and can simply replace the same named script associated with TranslocWrapper (Hu et al., 2016).
@@ -11,3 +11,4 @@ As an alternative approach, HTGTS-Rep-Rejoin processes raw sequence reads throug
 # References
 * Hu J, Meyers RM, Dong J, Panchakshari RA, Alt FW, Frock RL. Detecting DNA double-stranded breaks in mammalian genomes by linear amplification-mediated high-throughput genome-wide translocation sequencing. Nat Protoc. 2016;11(5):853-871. doi:10.1038/nprot.2016.043
 * Lin SG, Ba Z, Du Z, Zhang Y, Hu J, Alt FW. 2016. Highly sensitive and unbiased approach for elucidating antibody repertoires. Proc Natl Acad Sci U S A 113: 7846-7851
+* Liang Z, Kumar V, Le Bouteiller M, Zurita J, Kenrick J, Lin SG, Lou J, Hu J, Ye AY, Boboila C, Alt FW, Frock RL. Ku70 suppresses alternative end joining in G1-arrested progenitor B cells. Proc Natl Acad Sci U S A. 2021 May 25;118(21):e2103630118. doi: 10.1073/pnas.2103630118. PMID: 34006647.
